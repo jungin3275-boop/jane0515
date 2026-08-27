@@ -1,218 +1,242 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>교육시설 개방현황 대시보드</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <style>
-:root{--ink:#17233c;--muted:#6d7789;--line:#e4e8ee;--paper:#f5f7fa;--white:#fff;--blue:#1559d6;--cyan:#53d5e5;--navy:#111d35;--orange:#ff9d4d;--shadow:0 18px 50px rgba(23,35,60,.09)}
-*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:74px}body{margin:0;color:var(--ink);background:var(--paper);font-family:"Noto Sans KR",sans-serif}button,input,select{font:inherit}a{color:inherit;text-decoration:none}
-.topbar{height:72px;position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:0 max(5vw,28px);background:rgba(255,255,255,.9);border-bottom:1px solid rgba(228,232,238,.8);backdrop-filter:blur(14px)}.brand{display:flex;align-items:center;gap:12px;font-weight:800}.brand-mark{display:grid;place-items:center;width:38px;height:38px;color:#fff;background:var(--blue);border-radius:11px;font-size:13px}.topbar nav{display:flex;gap:28px;font-size:14px;font-weight:600;color:#536077}.topbar nav a:hover{color:var(--blue)}
-main{overflow:hidden}.hero{min-height:calc(100vh - 72px);display:grid;grid-template-columns:1.35fr .65fr;align-items:center;gap:6vw;padding:80px max(7vw,32px);background:radial-gradient(circle at 82% 35%,rgba(83,213,229,.2),transparent 25%),linear-gradient(135deg,#f9fbff 0%,#eef4ff 58%,#f5f7fa 100%)}.eyebrow{margin:0 0 14px;color:var(--blue);font-size:12px;font-weight:800;letter-spacing:.18em}.hero h1{margin:0;font-size:clamp(48px,6vw,86px);line-height:1.08;letter-spacing:-.055em}.hero h1 em{color:var(--blue);font-style:normal}.hero-description{max-width:620px;margin:28px 0;color:#5d6a7e;font-size:18px;line-height:1.8}.upload-row{display:flex;align-items:center;gap:16px;margin-top:34px}.upload-button{padding:15px 24px;border-radius:10px;color:#fff;background:var(--blue);font-weight:700;cursor:pointer;box-shadow:0 10px 24px rgba(21,89,214,.24)}#fileStatus{font-size:14px;color:var(--muted)}.privacy-note{font-size:12px;color:#8b94a3}.hero-panel{padding:34px;background:rgba(255,255,255,.72);border:1px solid rgba(255,255,255,.8);border-radius:24px;box-shadow:var(--shadow);backdrop-filter:blur(12px)}.panel-label{margin:0 0 18px;font-size:12px;font-weight:800;color:var(--blue)}.hero-panel>strong{display:block;font-size:26px;line-height:1.5}.mini-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:34px}.mini-grid div{padding:16px;background:#f3f6fb;border-radius:12px}.mini-grid span,.mini-grid b{display:block}.mini-grid span{font-size:11px;color:var(--muted)}.mini-grid b{margin-top:6px;font-size:14px}
-.section{padding:110px max(7vw,32px)}.summary-section{background:#fff}.section-heading{display:flex;align-items:end;justify-content:space-between;gap:30px;margin-bottom:42px}.section-heading h2{margin:0;font-size:clamp(34px,4vw,52px);letter-spacing:-.045em}.section-heading>p{max-width:390px;margin:0;color:var(--muted);line-height:1.7}.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}.kpi{min-height:150px;padding:24px;background:var(--paper);border-top:3px solid #dbe2ec}.kpi.accent{color:#fff;background:var(--blue);border-color:var(--cyan)}.kpi span,.kpi small{display:block;font-size:12px}.kpi span{color:var(--muted);font-weight:600}.kpi.accent span{color:#dbe6ff}.kpi strong{display:inline-block;margin-top:22px;font-size:34px;letter-spacing:-.04em}.kpi small{display:inline;margin-left:4px}.insight{display:grid;grid-template-columns:46px 1fr;gap:20px;margin-top:24px;padding:28px 30px;background:#edf4ff;border-left:4px solid var(--blue)}.insight.compact{margin-top:18px}.insight-icon{display:grid;place-items:center;width:38px;height:38px;color:#fff;background:var(--blue);border-radius:50%;font-family:serif;font-weight:bold}.insight-title{margin:0 0 9px;font-weight:800}.insight p:not(.insight-title){margin:5px 0;color:#43526a;line-height:1.75}.chart-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:18px}.chart-card{min-width:0;padding:26px;background:#fff;box-shadow:var(--shadow)}.chart-card.wide{grid-column:span 2}.card-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}.card-head h3{margin:0;font-size:17px}.card-head span{font-size:11px;color:var(--muted)}.chart-wrap{position:relative;height:330px}
-.dark-section{background:var(--navy);color:#fff}.section-heading.light>p{color:#aeb9cd}.dark-section .eyebrow{color:var(--cyan)}.chart-card.dark{background:#182641;box-shadow:none;border:1px solid #263653}.chart-card.dark .card-head span{color:#98a6bc}.dark-insight{background:#182641;border-color:var(--cyan)}.dark-insight .insight-icon{color:var(--navy);background:var(--cyan)}.dark-insight p:not(.insight-title){color:#c4ccda}
-.filters{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:22px;background:#fff;border:1px solid var(--line)}.filters label{display:flex;flex-direction:column;gap:8px;font-size:12px;font-weight:700;color:#536077}.filters select,.filters input{height:44px;padding:0 12px;border:1px solid #d8dee7;border-radius:4px;background:#fff;color:var(--ink)}.filters .search-label{grid-column:span 3}.filters button,.table-meta button{border:0;cursor:pointer;font-weight:700}.filters button{align-self:end;height:44px;color:#fff;background:var(--ink)}.table-meta{display:flex;align-items:center;justify-content:space-between;margin:24px 0 12px}.table-meta button{padding:10px 14px;color:var(--blue);background:#eaf1ff}.table-shell{overflow:auto;background:#fff;border-top:2px solid var(--ink)}table{width:100%;border-collapse:collapse;min-width:980px}th,td{padding:15px 14px;border-bottom:1px solid var(--line);text-align:left;font-size:13px}th{position:sticky;top:0;background:#f2f5f9;font-size:12px;color:#59667a}td.num{text-align:right}.empty{text-align:center;color:var(--muted);padding:50px}.badge{display:inline-block;padding:4px 8px;border-radius:20px;font-size:11px;font-weight:700}.badge.free{color:#087f5b;background:#dff7ee}.badge.paid{color:#9a4e0a;background:#fff0dc}footer{display:flex;justify-content:space-between;padding:30px max(7vw,32px);color:#aeb9c8;background:#0c1629;font-size:13px}
-.reveal{opacity:0;transform:translateY(24px);transition:opacity .65s ease,transform .65s ease}.reveal.visible{opacity:1;transform:none}
-@media(max-width:1000px){.hero{grid-template-columns:1fr}.hero-panel{max-width:600px}.kpi-grid{grid-template-columns:repeat(2,1fr)}.chart-grid{grid-template-columns:1fr}.chart-card.wide{grid-column:auto}.filters{grid-template-columns:repeat(2,1fr)}.filters .search-label{grid-column:span 1}}
-@media(max-width:640px){.topbar nav{display:none}.hero,.section{padding-left:20px;padding-right:20px}.hero{padding-top:55px}.hero h1{font-size:44px}.upload-row{align-items:flex-start;flex-direction:column}.section-heading{align-items:start;flex-direction:column}.kpi-grid,.filters{grid-template-columns:1fr}.filters .search-label{grid-column:auto}.mini-grid{grid-template-columns:1fr}.insight{grid-template-columns:1fr}.chart-wrap{height:280px}}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.reveal{opacity:1;transform:none;transition:none}}
-
-</style>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="행정안전부 AI 친화적 행정문서 작성 가이드라인 기반 Gemini 행정문서 초안 생성기" />
+  <title>한글 초안 AI | 행정문서 초안 생성기</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script src="https://unpkg.com/mammoth@1.8.0/mammoth.browser.min.js"></script>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="#overview"><span class="brand-mark">열림</span><span>교육시설 개방현황</span></a>
-    <nav aria-label="페이지 내 이동">
-      <a href="#overview">종합</a><a href="#region">지역</a><a href="#operation">운영·비용</a><a href="#finder">시설 찾기</a>
-    </nav>
-  </header>
+  <div class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="한글 초안 AI 홈">
+        <span class="brand-mark">한</span>
+        <span>
+          <strong>한글 초안 AI</strong>
+          <small>AI 친화 행정문서 작성기</small>
+        </span>
+      </a>
+      <div class="topbar-actions">
+        <span class="guideline-badge">행안부 가이드라인 기반</span>
+        <button class="ghost-btn" id="openSettingsBtn" type="button">API 설정</button>
+      </div>
+    </header>
 
-  <main>
-    <section class="hero" id="overview">
-      <div class="hero-copy">
-        <p class="eyebrow">PUBLIC FACILITY OPEN DATA</p>
-        <h1>개방시설 현황을<br><em>한눈에, 근거 있게</em></h1>
-        <p class="hero-description">시설 공급, 수용 규모, 운영시간과 사용료를 분석하고 조건에 맞는 시설을 빠르게 찾습니다.</p>
-        <div class="upload-row">
-          <label class="upload-button" for="fileInput">데이터 파일 선택</label>
-          <input id="fileInput" type="file" accept=".csv,.tsv,.xlsx,.xls" hidden>
-          <span id="fileStatus" role="status">CSV 또는 Excel 파일을 올려주세요</span>
+    <main>
+      <section class="hero">
+        <div class="hero-copy">
+          <span class="eyebrow">GEMINI × HWPX</span>
+          <h1>자료만 넣으면,<br /><em>한글 행정문서 초안</em>이 됩니다.</h1>
+          <p>사실자료와 참고문서를 바탕으로 요약·추진배경·주요내용·향후계획을 서술식으로 정리하고, HWPX로 바로 저장합니다.</p>
         </div>
-        <p class="privacy-note">파일은 브라우저 안에서만 처리되며 외부로 전송되지 않습니다.</p>
-      </div>
-      <aside class="hero-panel">
-        <p class="panel-label">분석 준비</p>
-        <strong id="readyText">데이터를 불러오면<br>자동 분석이 시작됩니다.</strong>
-        <div class="mini-grid">
-          <div><span>지원 형식</span><b>CSV · XLSX</b></div>
-          <div><span>분석 방식</span><b>실시간</b></div>
+        <div class="hero-rules" aria-label="문서 작성 핵심 규칙">
+          <div><b>01</b><span>요약 우선</span></div>
+          <div><b>02</b><span>서술식 문장</span></div>
+          <div><b>03</b><span>단순 표 구조</span></div>
+          <div><b>04</b><span>유니코드 위계</span></div>
         </div>
-      </aside>
-    </section>
+      </section>
 
-    <section class="section summary-section">
-      <div class="section-heading reveal"><div><p class="eyebrow">01 OVERVIEW</p><h2>전체 현황</h2></div><p>업로드한 자료를 기준으로 자동 집계합니다.</p></div>
-      <div class="kpi-grid reveal" id="kpiGrid">
-        <article class="kpi"><span>전체 시설</span><strong id="kpiTotal">-</strong><small>개소</small></article>
-        <article class="kpi"><span>총 수용인원</span><strong id="kpiCapacity">-</strong><small>명</small></article>
-        <article class="kpi"><span>무료시설 비율</span><strong id="kpiFree">-</strong><small>%</small></article>
-        <article class="kpi"><span>주말 운영 비율</span><strong id="kpiWeekend">-</strong><small>%</small></article>
-        <article class="kpi accent"><span>평균 시간당 사용료</span><strong id="kpiFee">-</strong><small>원</small></article>
+      <section class="workspace">
+        <aside class="input-panel panel">
+          <div class="panel-heading">
+            <div>
+              <span class="step-label">STEP 1</span>
+              <h2>문서 조건 입력</h2>
+            </div>
+            <button class="text-btn" id="sampleBtn" type="button">예시 채우기</button>
+          </div>
+
+          <div class="field-group">
+            <label>문서 유형 <span class="required">*</span></label>
+            <div class="type-grid" id="docTypeGroup">
+              <button class="type-card active" type="button" data-type="report">
+                <strong>보고서</strong><small>요약 → 배경 → 주요내용 → 향후계획</small>
+              </button>
+              <button class="type-card" type="button" data-type="plan">
+                <strong>계획(안)</strong><small>목적·대상·방법·일정·역할 중심</small>
+              </button>
+              <button class="type-card" type="button" data-type="training">
+                <strong>교육계획</strong><small>추진배경 → 교육개요 → 세부일정</small>
+              </button>
+              <button class="type-card" type="button" data-type="free">
+                <strong>자유형</strong><small>입력 자료에 맞춰 최적 구조 제안</small>
+              </button>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label for="titleInput">문서 제목 / 주제 <span class="required">*</span></label>
+            <input id="titleInput" type="text" maxlength="160" placeholder="예) 2026년 AI 활용 행정업무 개선 계획(안)" />
+          </div>
+
+          <div class="field-group">
+            <div class="label-row">
+              <label for="factsInput">핵심 사실자료 <span class="required">*</span></label>
+              <span id="factsCount">0 / 8,000</span>
+            </div>
+            <textarea id="factsInput" maxlength="8000" rows="11" placeholder="누가 / 언제 / 어디서 / 무엇을 / 왜 / 어떻게 / 예산 / 수치 / 일정 / 담당부서 등을 자유롭게 입력하세요.\n\n예)\n- 대상: 연수원 직원 80명\n- 기간: 2026. 9. 1.~11. 30.\n- 목적: 반복 행정업무 자동화 역량 강화\n- 주요 내용: Gemini 활용 실습, 부서별 자동화 과제 발굴\n- 결과물: 부서별 자동화 시제품 1건"></textarea>
+            <p class="field-help">입력에 없는 날짜·수치·기관명은 AI가 임의 생성하지 않고 <b>(확인 필요)</b>로 표시하도록 설정되어 있습니다.</p>
+          </div>
+
+          <div class="field-group">
+            <label>참고 파일 <span class="optional">선택</span></label>
+            <label class="dropzone" id="dropzone" for="fileInput">
+              <input id="fileInput" type="file" multiple accept=".txt,.md,.pdf,.docx,.hwpx" hidden />
+              <span class="drop-icon">＋</span>
+              <strong>파일을 놓거나 클릭하여 첨부</strong>
+              <small>TXT · MD · PDF · DOCX · HWPX / 파일당 최대 10MB</small>
+            </label>
+            <div class="file-list" id="fileList"></div>
+          </div>
+
+          <details class="advanced-box" open>
+            <summary>보고 정보 · 생성 옵션</summary>
+            <div class="two-col">
+              <div class="field-group compact">
+                <label for="agencyInput">발행 기관</label>
+                <input id="agencyInput" type="text" placeholder="예) 서울특별시교육청교육연수원" />
+              </div>
+              <div class="field-group compact">
+                <label for="authorInput">담당자 / 보고자</label>
+                <input id="authorInput" type="text" placeholder="예) 교육행정 OOO" />
+              </div>
+              <div class="field-group compact">
+                <label for="reportModeInput">보고 방식</label>
+                <select id="reportModeInput">
+                  <option value="">선택 안 함</option>
+                  <option>대면보고</option>
+                  <option>서면보고</option>
+                  <option>업무보고</option>
+                  <option>내부검토</option>
+                </select>
+              </div>
+              <div class="field-group compact">
+                <label for="dateInput">기준일</label>
+                <input id="dateInput" type="date" />
+              </div>
+            </div>
+            <div class="option-list">
+              <label><input id="summaryOption" type="checkbox" checked /> 문서 앞부분에 요약 작성</label>
+              <label><input id="tableOption" type="checkbox" checked /> 일정·목록은 단순 표로 정리</label>
+              <label><input id="factOption" type="checkbox" checked /> 불확실한 사실은 ‘(확인 필요)’ 표시</label>
+            </div>
+          </details>
+
+          <button class="primary-btn" id="generateBtn" type="button">
+            <span class="btn-label">AI 문서 초안 생성</span>
+            <span class="btn-loading" hidden><i></i> 문서를 정리하고 있습니다</span>
+          </button>
+          <p class="security-note">API 키는 이 페이지에서 직접 Gemini API 호출에만 사용합니다. 공개 서비스 운영 시에는 서버 프록시 방식이 안전합니다.</p>
+        </aside>
+
+        <section class="output-panel panel">
+          <div class="panel-heading output-heading">
+            <div>
+              <span class="step-label">STEP 2</span>
+              <h2>초안 검토 · 편집</h2>
+            </div>
+            <div class="status-pill" id="statusPill"><span></span> 입력 대기</div>
+          </div>
+
+          <div class="output-toolbar">
+            <div class="tabs" role="tablist">
+              <button class="tab active" type="button" data-tab="preview">문서 미리보기</button>
+              <button class="tab" type="button" data-tab="editor">마크업 편집</button>
+              <button class="tab" type="button" data-tab="check">자동 검수</button>
+            </div>
+            <div class="toolbar-actions">
+              <button class="icon-btn" id="copyBtn" type="button" title="초안 복사">복사</button>
+              <button class="icon-btn" id="downloadMdBtn" type="button" title="마크다운 저장">MD</button>
+              <button class="download-btn" id="downloadHwpxBtn" type="button" disabled>HWPX 저장</button>
+            </div>
+          </div>
+
+          <div class="tab-panel active" id="previewPanel" data-panel="preview">
+            <div class="empty-state" id="emptyState">
+              <div class="empty-document">
+                <span></span><span></span><span></span><span></span><span></span>
+              </div>
+              <h3>아직 생성된 문서가 없습니다.</h3>
+              <p>왼쪽에서 제목과 사실자료를 입력한 뒤<br />‘AI 문서 초안 생성’을 눌러 주세요.</p>
+            </div>
+            <article class="paper" id="paperPreview" hidden></article>
+          </div>
+
+          <div class="tab-panel" id="editorPanel" data-panel="editor">
+            <div class="editor-head">
+              <span>HWPX 변환용 구조화 마크업</span>
+              <small># 제목 · @ 메타 · &gt; 요약 · □ ○ - · · | 표 |</small>
+            </div>
+            <textarea id="markupEditor" spellcheck="false" placeholder="AI 초안이 생성되면 이곳에서 직접 수정할 수 있습니다."></textarea>
+          </div>
+
+          <div class="tab-panel" id="checkPanel" data-panel="check">
+            <div class="check-summary">
+              <div class="score-ring" id="scoreRing"><b>0</b><span>/100</span></div>
+              <div><h3>AI 친화 문서 검수</h3><p>가이드라인 핵심 규칙을 기준으로 빠르게 확인합니다.</p></div>
+            </div>
+            <div class="check-list" id="checkList"></div>
+          </div>
+        </section>
+      </section>
+
+      <section class="principles">
+        <div class="section-intro">
+          <span class="eyebrow">DOCUMENT SYSTEM</span>
+          <h2>사람과 AI가 함께 읽기 쉬운 문서 원칙</h2>
+          <p>첨부된 행정안전부 예시문서의 구조와 서식값을 웹 문서 생성 규칙으로 옮겼습니다.</p>
+        </div>
+        <div class="principle-grid">
+          <article><b>요약</b><h3>처음 3~6문장에 핵심을 배치</h3><p>목적, 핵심 내용, 추진 방식, 향후 일정을 앞부분에서 이해할 수 있게 구성합니다.</p></article>
+          <article><b>문장</b><h3>주어·서술어가 분명한 서술식</h3><p>명사 나열보다 맥락이 분명한 문장으로 정리하고 ‘~함 / ~임 / ~할 계획임’을 사용합니다.</p></article>
+          <article><b>표</b><h3>병합 없는 평면적 구조</h3><p>첫 행 머리글, 한 셀 한 정보 원칙을 지키고 표 아래에 핵심 의미를 문장으로 다시 설명합니다.</p></article>
+          <article><b>위계</b><h3>실제 유니코드 기호 사용</h3><p>번호항목과 □ → ○ → - → · 순서를 사용하여 정보 계층이 텍스트만으로도 드러나게 합니다.</p></article>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>행정안전부 AI 친화적 행정문서 예시 3종의 구조·서식을 바탕으로 한 프로토타입</p>
+      <span>Gemini API · Browser-only MVP</span>
+    </footer>
+  </div>
+
+  <dialog id="settingsDialog" class="settings-dialog">
+    <form method="dialog">
+      <div class="dialog-head">
+        <div><span class="step-label">API SETTINGS</span><h2>Gemini 연결 설정</h2></div>
+        <button class="close-btn" value="cancel" aria-label="닫기">×</button>
       </div>
-      <article class="insight reveal" aria-live="polite">
-        <div class="insight-icon">i</div>
-        <div><p class="insight-title">전체 현황 해석</p><div id="overallNarrative"><p>데이터를 올리면 시설 공급 규모, 무료·주말 운영 비중, 수용 규모와 비용 수준을 문장으로 해석해 드립니다.</p></div></div>
-      </article>
-    </section>
-
-    <section class="section" id="region">
-      <div class="section-heading reveal"><div><p class="eyebrow">02 SUPPLY</p><h2>지역·시설유형별 공급</h2></div><p>어디에 어떤 시설이 집중되어 있는지 살펴봅니다.</p></div>
-      <div class="chart-grid reveal">
-        <article class="chart-card wide"><div class="card-head"><h3>지역별 시설 수</h3><span>상위 10개 지역</span></div><div class="chart-wrap"><canvas id="regionChart"></canvas></div></article>
-        <article class="chart-card"><div class="card-head"><h3>시설유형 구성</h3><span>상위 8개 유형</span></div><div class="chart-wrap"><canvas id="typeChart"></canvas></div></article>
+      <div class="field-group">
+        <label for="apiKeyInput">Gemini API Key</label>
+        <div class="password-wrap">
+          <input id="apiKeyInput" type="password" autocomplete="off" placeholder="AIza..." />
+          <button type="button" id="toggleKeyBtn">보기</button>
+        </div>
+        <p class="field-help">소스코드에는 저장하지 않습니다. 체크 시 현재 브라우저 세션에만 보관합니다.</p>
       </div>
-      <article class="insight compact reveal"><div class="insight-icon">i</div><div><p class="insight-title">공급 현황 해석</p><div id="supplyNarrative"><p>데이터 업로드 후 지역 및 시설유형의 집중도를 해석합니다.</p></div></div></article>
-    </section>
-
-    <section class="section dark-section" id="operation">
-      <div class="section-heading light reveal"><div><p class="eyebrow">03 ACCESSIBILITY</p><h2>운영시간·비용 접근성</h2></div><p>시민이 실제로 이용하기 쉬운 조건인지 확인합니다.</p></div>
-      <div class="chart-grid reveal">
-        <article class="chart-card dark"><div class="card-head"><h3>유료·무료 구성</h3><span>시설 수 기준</span></div><div class="chart-wrap"><canvas id="feeTypeChart"></canvas></div></article>
-        <article class="chart-card dark wide"><div class="card-head"><h3>시설유형별 평균 시간당 사용료</h3><span>유료시설 기준</span></div><div class="chart-wrap"><canvas id="hourlyChart"></canvas></div></article>
+      <div class="field-group">
+        <label for="modelInput">모델</label>
+        <select id="modelInput">
+          <option value="gemini-3.7-flash" selected>Gemini 3.7 Flash</option>
+          <option value="gemini-3.6-flash">Gemini 3.6 Flash</option>
+        </select>
       </div>
-      <article class="insight dark-insight reveal"><div class="insight-icon">i</div><div><p class="insight-title">운영·비용 해석</p><div id="operationNarrative"><p>데이터 업로드 후 무료 이용 가능성과 비용 수준을 해석합니다.</p></div></div></article>
-    </section>
-
-    <section class="section" id="finder">
-      <div class="section-heading reveal"><div><p class="eyebrow">04 FINDER</p><h2>조건별 시설 찾기</h2></div><p>목적에 맞는 시설을 필터링하고 정렬합니다.</p></div>
-      <div class="filters reveal">
-        <label>지역<select id="filterRegion"><option value="">전체 지역</option></select></label>
-        <label>시설유형<select id="filterType"><option value="">전체 유형</option></select></label>
-        <label>이용료<select id="filterFee"><option value="">전체</option><option value="free">무료</option><option value="paid">유료</option></select></label>
-        <label>최소 수용인원<input id="filterCapacity" type="number" min="0" placeholder="예: 100"></label>
-        <label class="search-label">시설명 검색<input id="filterSearch" type="search" placeholder="시설명 또는 기관명"></label>
-        <button id="resetFilters" type="button">초기화</button>
+      <label class="session-save"><input id="rememberKeyInput" type="checkbox" /> 이 탭을 닫을 때까지 API 키 기억</label>
+      <div class="dialog-actions">
+        <button class="ghost-btn" type="button" id="testApiBtn">연결 테스트</button>
+        <button class="primary-btn small" value="default" id="saveSettingsBtn">설정 저장</button>
       </div>
-      <div class="table-meta reveal"><strong id="resultCount">0개 시설</strong><button id="downloadFiltered" type="button">검색 결과 CSV 저장</button></div>
-      <div class="table-shell reveal">
-        <table><thead><tr><th>개방시설명</th><th>지역</th><th>유형</th><th>운영시간</th><th>이용료</th><th>수용인원</th><th>신청방법</th><th>연락처</th></tr></thead><tbody id="facilityRows"><tr><td colspan="8" class="empty">데이터를 먼저 업로드해 주세요.</td></tr></tbody></table>
-      </div>
-    </section>
-  </main>
+      <p class="api-test-result" id="apiTestResult"></p>
+    </form>
+  </dialog>
 
-  <footer><p>교육시설 개방현황 대시보드</p><a href="#overview">맨 위로 ↑</a></footer>
-  <script>
-const $ = (s) => document.querySelector(s);
-const state = { rows: [], filtered: [], charts: {} };
-const field = {
-  name:'개방시설명', place:'개방장소명', type:'개방시설유형구분', weekdayStart:'평일운영시작시각', weekdayEnd:'평일운영종료시각', weekendStart:'주말운영시작시각', weekendEnd:'주말운영종료시각', paid:'유료사용여부', baseHours:'사용기준시간', fee:'사용료', capacity:'수용가능인원수', area:'면적', method:'신청방법구분', address:'소재지도로명주소', agency:'관리기관명', phone:'사용안내전화번호', date:'데이터기준일자'
-};
-const fmt = new Intl.NumberFormat('ko-KR');
-const pct = (n,d) => d ? n/d*100 : 0;
-const num = v => { const n = Number(String(v ?? '').replace(/[원,%\s]/g,'').replaceAll(',','')); return Number.isFinite(n) ? n : 0; };
-const text = v => String(v ?? '').trim();
-const regionOf = row => { const a=text(row[field.address]); return a.split(/\s+/).slice(0,2).join(' ') || '주소 미상'; };
-const isPaid = row => ['Y','유료','예','1','TRUE'].includes(text(row[field.paid]).toUpperCase());
-const hasWeekend = row => !!(text(row[field.weekendStart]) && text(row[field.weekendEnd]) && text(row[field.weekendStart]) !== '0');
-const hourlyFee = row => { const h=num(row[field.baseHours]); return isPaid(row) && h>0 ? num(row[field.fee])/h : 0; };
-const countBy = (rows, getter) => rows.reduce((a,r)=>{ const k=getter(r)||'미분류'; a[k]=(a[k]||0)+1; return a; },{});
-const topEntries = (obj,n=10) => Object.entries(obj).sort((a,b)=>b[1]-a[1]).slice(0,n);
-
-$('#fileInput').addEventListener('change', async e => {
-  const file=e.target.files[0]; if(!file) return;
-  $('#fileStatus').textContent=`${file.name} 읽는 중…`;
-  try {
-    const rows = await readFile(file);
-    if(!rows.length) throw new Error('데이터 행이 없습니다.');
-    const needed=[field.name,field.type,field.paid,field.capacity];
-    const missing=needed.filter(k=>!(k in rows[0]));
-    if(missing.length) throw new Error(`필수 열이 없습니다: ${missing.join(', ')}`);
-    state.rows=rows.filter(r=>Object.values(r).some(v=>text(v)));
-    $('#fileStatus').textContent=`${file.name} · ${fmt.format(state.rows.length)}행 분석 완료`;
-    $('#readyText').innerHTML=`${fmt.format(state.rows.length)}개 시설의<br>분석이 준비됐습니다.`;
-    renderAll();
-  } catch(err){ $('#fileStatus').textContent=`오류: ${err.message}`; }
-});
-
-async function readFile(file){
-  const ext=file.name.split('.').pop().toLowerCase();
-  if(['xlsx','xls'].includes(ext)){
-    const wb=XLSX.read(await file.arrayBuffer(),{type:'array',cellDates:true});
-    return XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]],{defval:''});
-  }
-  let raw=await file.arrayBuffer();
-  let decoded=new TextDecoder('utf-8').decode(raw);
-  if(decoded.includes('�')) decoded=new TextDecoder('euc-kr').decode(raw);
-  return parseDelimited(decoded, ext==='tsv'?'\t':detectDelimiter(decoded));
-}
-function detectDelimiter(s){ const line=s.replace(/^\uFEFF/,'').split(/\r?\n/)[0]; const candidates=[',','\t',';']; return candidates.sort((a,b)=>line.split(b).length-line.split(a).length)[0]; }
-function parseDelimited(s,delimiter){
-  const matrix=[]; let row=[],cell='',quoted=false;
-  s=s.replace(/^\uFEFF/,'');
-  for(let i=0;i<s.length;i++){ const c=s[i],next=s[i+1];
-    if(c==='"'&&quoted&&next==='"'){cell+='"';i++;}
-    else if(c==='"') quoted=!quoted;
-    else if(c===delimiter&&!quoted){row.push(cell);cell='';}
-    else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&next==='\n')i++;row.push(cell);if(row.some(x=>x!==''))matrix.push(row);row=[];cell='';}
-    else cell+=c;
-  }
-  row.push(cell); if(row.some(x=>x!==''))matrix.push(row);
-  const headers=(matrix.shift()||[]).map(h=>h.trim());
-  return matrix.map(r=>Object.fromEntries(headers.map((h,i)=>[h,r[i]??''])));
-}
-
-function renderAll(){ renderKPIs(); renderCharts(); buildFilters(); applyFilters(); }
-function renderKPIs(){
-  const r=state.rows,total=r.length,capacity=r.reduce((s,x)=>s+num(x[field.capacity]),0),free=r.filter(x=>!isPaid(x)).length,weekend=r.filter(hasWeekend).length;
-  const paidHourly=r.map(hourlyFee).filter(v=>v>0); const avgFee=paidHourly.length?paidHourly.reduce((a,b)=>a+b,0)/paidHourly.length:0;
-  $('#kpiTotal').textContent=fmt.format(total); $('#kpiCapacity').textContent=fmt.format(capacity); $('#kpiFree').textContent=pct(free,total).toFixed(1); $('#kpiWeekend').textContent=pct(weekend,total).toFixed(1); $('#kpiFee').textContent=fmt.format(Math.round(avgFee));
-  const avgCap=total?capacity/total:0, types=Object.keys(countBy(r,x=>text(x[field.type]))).length, regions=Object.keys(countBy(r,regionOf)).length;
-  $('#overallNarrative').innerHTML=`<p>총 <b>${fmt.format(total)}개</b> 시설이 ${fmt.format(regions)}개 지역에 분포하며, ${fmt.format(types)}개 시설유형을 제공합니다. 전체 수용 가능 인원은 <b>${fmt.format(capacity)}명</b>, 시설당 평균은 ${fmt.format(Math.round(avgCap))}명입니다.</p><p>무료시설은 <b>${pct(free,total).toFixed(1)}%</b>, 주말 운영시설은 <b>${pct(weekend,total).toFixed(1)}%</b>입니다. 유료시설의 평균 시간당 사용료는 ${avgFee?`<b>${fmt.format(Math.round(avgFee))}원</b>`:'자료 부족으로 산출되지 않았습니다'}. 이 수치는 시설 공급·이용조건을 설명하며 실제 예약률이나 이용률을 뜻하지 않습니다.</p>`;
-}
-function renderCharts(){
-  const r=state.rows, region=topEntries(countBy(r,regionOf)), type=topEntries(countBy(r,x=>text(x[field.type])||'미분류'),8);
-  chart('regionChart','bar',region,{horizontal:true,color:'#1559d6'}); chart('typeChart','doughnut',type,{colors:['#1559d6','#53d5e5','#ff9d4d','#7b8ba8','#7b6ee7','#44a67c','#e76f86','#a7b5c9']});
-  const free=r.filter(x=>!isPaid(x)).length, paid=r.length-free;
-  chart('feeTypeChart','doughnut',[['무료',free],['유료',paid]],{colors:['#53d5e5','#ff9d4d'],dark:true});
-  const grouped={}; r.filter(isPaid).forEach(x=>{const t=text(x[field.type])||'미분류',v=hourlyFee(x);if(v>0)(grouped[t]??=[]).push(v)});
-  const hourly=Object.entries(grouped).map(([k,v])=>[k,v.reduce((a,b)=>a+b,0)/v.length]).sort((a,b)=>b[1]-a[1]).slice(0,8);
-  chart('hourlyChart','bar',hourly,{horizontal:true,color:'#53d5e5',dark:true,money:true});
-  const topRegion=region[0], topType=type[0];
-  $('#supplyNarrative').innerHTML=topRegion?`<p><b>${topRegion[0]}</b>에 전체 시설의 ${pct(topRegion[1],r.length).toFixed(1)}%가 위치해 가장 많습니다. 시설유형은 <b>${topType[0]}</b>이 ${fmt.format(topType[1])}개로 가장 큰 비중을 차지합니다. 특정 지역이나 유형의 비중이 지나치게 높다면 지역 간 접근성과 공급 다양성을 함께 점검할 필요가 있습니다.</p>`:'<p>분석할 자료가 없습니다.</p>';
-  const avgPaid=hourly.length?hourly.reduce((s,x)=>s+x[1],0)/hourly.length:0, high=hourly[0];
-  $('#operationNarrative').innerHTML=`<p>전체의 <b>${pct(free,r.length).toFixed(1)}%</b>는 무료로 등록되어 있습니다. ${high?`시간당 평균 사용료가 가장 높은 유형은 <b>${high[0]}</b>이며 약 ${fmt.format(Math.round(high[1]))}원입니다.`:'유료시설의 기준시간 또는 사용료 정보가 부족해 유형별 비용 비교가 제한됩니다.'} 사용기준시간이 0인 유료시설은 시간당 비용 계산에서 제외했습니다.</p>`;
-}
-function chart(id,type,entries,opt={}){
-  state.charts[id]?.destroy(); const ctx=$(`#${id}`); const labels=entries.map(x=>x[0]),data=entries.map(x=>x[1]);
-  const textColor=opt.dark?'#b9c4d7':'#647087',grid=opt.dark?'rgba(255,255,255,.08)':'rgba(23,35,60,.08)';
-  state.charts[id]=new Chart(ctx,{type,data:{labels,datasets:[{data,backgroundColor:opt.colors||opt.color,borderWidth:0,borderRadius:type==='bar'?5:0}]},options:{responsive:true,maintainAspectRatio:false,indexAxis:opt.horizontal?'y':'x',plugins:{legend:{display:type==='doughnut',position:'bottom',labels:{color:textColor,usePointStyle:true,padding:18}},tooltip:{callbacks:{label:c=>`${c.label}: ${opt.money?fmt.format(Math.round(c.raw))+'원':fmt.format(c.raw)}`}}},scales:type==='doughnut'?{}:{x:{beginAtZero:true,ticks:{color:textColor,callback:v=>fmt.format(v)},grid:{color:grid}},y:{ticks:{color:textColor},grid:{display:false}}}}});
-}
-function buildFilters(){
-  fillSelect('#filterRegion',[...new Set(state.rows.map(regionOf))].sort());
-  fillSelect('#filterType',[...new Set(state.rows.map(r=>text(r[field.type])||'미분류'))].sort());
-}
-function fillSelect(sel,values){ const el=$(sel),first=el.options[0].outerHTML; el.innerHTML=first+values.map(v=>`<option value="${escapeHtml(v)}">${escapeHtml(v)}</option>`).join(''); }
-['#filterRegion','#filterType','#filterFee','#filterCapacity','#filterSearch'].forEach(s=>$(s).addEventListener('input',applyFilters));
-$('#resetFilters').addEventListener('click',()=>{['#filterRegion','#filterType','#filterFee','#filterCapacity','#filterSearch'].forEach(s=>$(s).value='');applyFilters();});
-function applyFilters(){
-  const region=$('#filterRegion').value,type=$('#filterType').value,fee=$('#filterFee').value,min=num($('#filterCapacity').value),q=$('#filterSearch').value.trim().toLowerCase();
-  state.filtered=state.rows.filter(r=>(!region||regionOf(r)===region)&&(!type||(text(r[field.type])||'미분류')===type)&&(!fee||(fee==='paid')===isPaid(r))&&num(r[field.capacity])>=min&&(!q||`${text(r[field.name])} ${text(r[field.agency])}`.toLowerCase().includes(q)));
-  $('#resultCount').textContent=`${fmt.format(state.filtered.length)}개 시설`;
-  $('#facilityRows').innerHTML=state.filtered.slice(0,300).map(r=>`<tr><td><b>${escapeHtml(text(r[field.name])||'-')}</b></td><td>${escapeHtml(regionOf(r))}</td><td>${escapeHtml(text(r[field.type])||'-')}</td><td>${escapeHtml(text(r[field.weekdayStart])||'-')}–${escapeHtml(text(r[field.weekdayEnd])||'-')}</td><td><span class="badge ${isPaid(r)?'paid':'free'}">${isPaid(r)?fmt.format(num(r[field.fee]))+'원':'무료'}</span></td><td class="num">${fmt.format(num(r[field.capacity]))}명</td><td>${escapeHtml(text(r[field.method])||'-')}</td><td>${escapeHtml(text(r[field.phone])||'-')}</td></tr>`).join('')||'<tr><td colspan="8" class="empty">조건에 맞는 시설이 없습니다.</td></tr>';
-}
-function escapeHtml(s){return String(s).replace(/[&<>'"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));}
-$('#downloadFiltered').addEventListener('click',()=>{
-  if(!state.filtered.length)return alert('저장할 검색 결과가 없습니다.'); const headers=Object.keys(state.filtered[0]);
-  const csv='\uFEFF'+[headers,...state.filtered.map(r=>headers.map(h=>r[h]??''))].map(row=>row.map(v=>`"${String(v).replaceAll('"','""')}"`).join(',')).join('\r\n');
-  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8'}));a.download='시설_검색결과.csv';a.click();URL.revokeObjectURL(a.href);
-});
-const observer=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible')}),{threshold:.12}); document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
-
-</script>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
 </body>
 </html>
