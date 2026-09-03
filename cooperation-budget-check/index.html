@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>협력사업 예산 자동판정</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="container">
+    <h1>자치행정 협력사업 예산 자동판정</h1>
+    <p class="desc">한도액 = 인구수 × 10원, 신청액이 한도액을 초과하면 반려됩니다.</p>
+
+    <section class="summary-grid" aria-label="요약 현황">
+      <div class="summary-card">
+        <span>승인건수</span>
+        <strong id="approvedCount">0</strong>
+      </div>
+      <div class="summary-card">
+        <span>반려건수</span>
+        <strong id="rejectedCount">0</strong>
+      </div>
+      <div class="summary-card">
+        <span>승인 신청액 합계</span>
+        <strong id="approvedTotal">0원</strong>
+      </div>
+    </section>
+
+    <section class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>지자체명</th>
+            <th>인구수</th>
+            <th>신청액</th>
+            <th>한도액</th>
+            <th>판정</th>
+          </tr>
+        </thead>
+        <tbody id="resultBody"></tbody>
+      </table>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
